@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Generic Layer
+   Reset, global box-sizing, typography, etc.
+   Site-wide background colors.
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    font-family: "Source Sans 3", -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue; sans-serif;
+}
+
+body {
+    min-height: 100dvh;
+    color: hsl(240, 6%, 94%);
+    background: rgb(14, 14, 16);
+}
+
+/* ==========================================================================
+   Elements Layer
+   Styling for bare HTML elements, type selectors (h1, p, ul, etc.)
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Quicksand", "Segoe UI", serif;
+}
+
+h1 {
+    font-size: 30px;
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ==========================================================================
+   Objects Layer
+   Fundamental building blocks
+   Reusable structural patterns: containers, grids, etc.
+   ========================================================================== */
+.header {
+    width: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    
+}
+
+.col {
+    flex: 1;
+    min-width: 200px;
+    background-color: rgb(0, 74, 35);
+    text-align: center;
+}
