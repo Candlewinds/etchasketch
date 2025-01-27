@@ -2,11 +2,12 @@
 function addGridSquare() {
     const gridSquare = document.createElement("div");
     gridSquare.textContent = "Grid Square";
+    gridSquare.classList.add("gridSquare");
 
     // Find all columns
     const columns = document.querySelectorAll(".col");
 
-    // Distribute to the column with the least children
+    // Distribute to the column with the fewest children
     let targetColumn = columns[0];
     for (let col of columns) {
         if (col.children.length < targetColumn.children.length) {
@@ -37,4 +38,13 @@ function handleMouseLeave(event) {
     console.log("Mouse left square");
 }
 
+// Initialize the grid
 initialGrid();
+
+// Add event listeners to all squares
+const allGridSquares = document.querySelectorAll(".gridSquare");
+allGridSquares.forEach((square) => {
+    square.addEventListener("mouseenter", handleMouseEnter);
+    square.addEventListener("mousemove", handleMouseMove);
+    square.addEventListener("mouseleave", handleMouseLeave);
+});
