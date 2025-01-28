@@ -17,12 +17,20 @@
         <div class="header">
             <h1>Draw Something Neat</h1>
         </div>
-        <div class="interface">
+        <div class="interface upper">
             <button class="button" id="grid-size">Create New Grid</button>
             <button class="button" id="toggleGrid">Toggle Grid Lines</button>
-            <button class="button" id="toggle-random">Color Picker</button>
-            <button class="button" id="toggle-random">Toggle Random Colors</button>
+            <button class="button" id="togglePaintMethod">Toggle Painting Method</button>
             <button class="button" id="darkening-challenge">Darkening Challenge</button>
+
+        </div>
+        <div class="interface lower">
+            <button class="button" id="toggleRandom">Toggle Random Colors</button>
+            <label class="color-picker-container" for="colorPicker">
+                <input type="color" id="colorPicker" class="color-picker" value="#000000">
+                <div id="colorDisplay" class="color-display">Click to choose a color</div>
+            </label>
+
         </div>
         <div id="container">
             <!-- Grid squares will be created by JavaScript -->
