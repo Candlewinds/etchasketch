@@ -1,35 +1,64 @@
-// Create the grid squares and assign them to columns
-function addGridSquare() {
+// Create a grid square
+function createGridSquare() {
     const gridSquare = document.createElement("div");
-    // gridSquare.textContent = "Grid Square";
     gridSquare.classList.add("gridSquare");
-
-    // Find all columns
-    const columns = document.querySelectorAll(".col");
-
-    // Distribute to the column with the fewest children
-    let targetColumn = columns[0];
-    for (let col of columns) {
-        if (col.children.length < targetColumn.children.length) {
-            targetColumn = col;
-        }
-    }
-
-    // Append the new square to the target column
-    targetColumn.appendChild(gridSquare);
+    return gridSquare;
 }
 
-// Add the initial grid squares
+// Create the initial grid
 function initialGrid() {
-    for (let i = 0; i < 256; i++) {
-        addGridSquare();
+    const container = document.querySelector("#container");
+    container.style.width = `750px`;
+
+    // Create 225 squares
+    for (let i = 0; i < 225; i++) {
+        const square = createGridSquare();
+        container.appendChild(square);
     }
 }
 
 // Initialize the grid
 initialGrid();
 
-// NodeList for grid squares
+const gridSizeButton = document.querySelector("#grid-size")
+gridSizeButton.addEventListener('click', deleteGridSquares);
+gridSizeButton.addEventListener('click', setGridSize);
+
+function deleteGridSquares() {
+    document.querySelectorAll(".gridSquare").forEach(square => square.remove());
+}
+
+function setGridSize() {
+    let gridSize = prompt("How many squares per side would you like the grid to have? (Max 100x100)");
+    
+    // Validate input
+    gridSize = parseInt(gridSize);
+    if (isNaN(gridSize) || gridSize > 100 || gridSize < 1) {
+        alert("Please enter a number between 1 and 100");
+        return;
+    }
+
+    const container = document.querySelector("#container");
+    
+    // Set the container width to force wrapping at the right point
+    // 50px per square × number of squares per side
+    container.style.width = `${gridSize * 50}px`;
+    
+    // Create the grid squares
+    const totalSquares = gridSize * gridSize;
+    for (let i = 0; i < totalSquares; i++) {
+        const square = createGridSquare();
+        container.appendChild(square);
+    }
+    
+    initializeTracking();
+}
+
+// Mouse Tracking Section
+// Enables detection of the mouse entering and exiting the grid
+// and its squares, and "painting" them.
+
+// Get all grid squares
 const allGridSquares = document.querySelectorAll(".gridSquare");
 
 // Grid detects mouse entry, initializes tracking
@@ -38,41 +67,37 @@ gridContainer.addEventListener("mouseenter", initializeTracking);
 
 // Add event listeners to all squares
 function initializeTracking() {
+    const allGridSquares = document.querySelectorAll(".gridSquare");
+
     allGridSquares.forEach((square) => {
-        square.addEventListener("mouseenter", handleMouseEnter);
-        square.addEventListener("mousemove", handleMouseMove);
-        square.addEventListener("mouseleave", handleMouseLeave);
+        square.addEventListener("mouseenter", paintSquares);
     });
 }
 
 // Grid detects mouse exit, deactivates tracking
-gridContainer.addEventListener("mouseleave", deactivateTracking);
 function deactivateTracking() {
     allGridSquares.forEach((square) => {
-        square.removeEventListener("mouseenter", handleMouseEnter);
-        square.removeEventListener("mousemove", handleMouseMove);
-        square.removeEventListener("mouseleave", handleMouseLeave);
+        square.removeEventListener("mouseenter", paintSquares);
     });
 }
+gridContainer.addEventListener("mouseleave", deactivateTracking);
 
-// Tracks the mouse through the grid, turning them random colors as it enters
-function handleMouseEnter(event) {
+
+// Paints squares a random color
+function paintSquares(event) {
     event.target.style.backgroundColor = getRandomColor();
-    console.log("Mouse entered square");
 }
 
-function handleMouseMove(event) {
-    console.log("Mouse moving in square");
-}
-
-function handleMouseLeave(event) {
-    console.log("Mouse left square");
-}
-
-// Function to get a random color
 function getRandomColor() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r},${g},${b})`;
+    const hexColor = Math.floor(Math.random()*16777215).toString(16);
+    return `#${hexColor}`;
 }
+
+// Toggle the grid lines
+const gridLinesButton = document.getElementById("toggleGrid");
+gridLinesButton.addEventListener("click", () => {
+    const allGridSquares = document.querySelectorAll(".gridSquare");
+    allGridSquares.forEach(square => {
+        square.classList.toggle('gridLines');
+    });
+});

@@ -6,8 +6,6 @@
         <title>Etch-a-Sketch</title>
         <script src="javascript.js" defer></script>
         <link rel="stylesheet" href="styles.css" />
-        <!-- Font import -->
-
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -20,15 +18,14 @@
             <h1>Draw Something Neat</h1>
         </div>
         <div class="interface">
-            <button id="grid-size">Set Grid Size</button>
-            <button id="darkening-challenge">Darkening Challenge</button>
+            <button class="button" id="grid-size">Create New Grid</button>
+            <button class="button" id="toggleGrid">Toggle Grid Lines</button>
+            <button class="button" id="toggle-random">Color Picker</button>
+            <button class="button" id="toggle-random">Toggle Random Colors</button>
+            <button class="button" id="darkening-challenge">Darkening Challenge</button>
         </div>
         <div id="container">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
+            <!-- Grid squares will be created by JavaScript -->
         </div>
     </body>
-    <script></script>
 </html>

@@ -73,44 +73,39 @@ a {
 }
 
 /* original version */
-#container {
+/* #container {
     display: flex;
     flex-wrap: wrap;
     gap: 0;
     justify-content: center;
 }
 
-
-.col {
-    flex: 1;
-    max-width: 50px;
-    background-color: rgb(239, 239, 239);
-    text-align: center;
-    cursor: crosshair;
-}
-
 .gridSquare {
     min-height: 50px;
-}
+} */
 
-
-/* #container {
+#container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-}
-
-.col {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
+    width: fit-content;
+    padding-bottom: 2rem;
 }
 
 .gridSquare {
-    width: 50px;
     height: 50px;
+    width: 50px;
     background-color: rgb(239, 239, 239);
     cursor: crosshair;
-} */
+    flex: 0 0 50px; /* Don't grow, don't shrink, stay at 50px */
+}
+
+.gridLines {
+    border: 1px solid #444;
+}
+
+.button {
+    padding: 0.75rem;
+}
