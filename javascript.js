@@ -1,5 +1,6 @@
 let currentColor = "#000000";
 let paintChosen = true;
+let paintOnHover = true; // true for hover (mouseenter), false for click
 
 // Create a grid square
 function createGridSquare() {
@@ -98,31 +99,46 @@ function getRandomColor() {
 
 // Color Style Toggle
 const toggleRandom = document.getElementById("toggleRandom");
+const togglePaintMethod = document.getElementById("togglePaintMethod");
 
 function updatePaintMode() {
     const allGridSquares = document.querySelectorAll(".gridSquare");
 
-    // First remove both types of event listeners to start fresh
+    // Remove all possible event listeners to start fresh
     allGridSquares.forEach((square) => {
         square.removeEventListener("mouseenter", paintChosenColor);
         square.removeEventListener("mouseenter", paintRandomColors);
+        square.removeEventListener("click", paintChosenColor);
+        square.removeEventListener("click", paintRandomColors);
     });
 
-    // Add the appropriate event listener based on current mode
+    // Add the appropriate event listener based on current modes
     allGridSquares.forEach((square) => {
-        if (paintChosen) {
-            square.addEventListener("mouseenter", paintChosenColor);
-            toggleRandom.textContent = "Switch to Random Colors";
-        } else {
-            square.addEventListener("mouseenter", paintRandomColors);
-            toggleRandom.textContent = "Switch to Chosen Color";
-        }
+        const eventType = paintOnHover ? "mouseenter" : "click";
+        const paintFunction = paintChosen
+            ? paintChosenColor
+            : paintRandomColors;
+
+        square.addEventListener(eventType, paintFunction);
     });
+    toggleRandom.textContent = paintChosen
+        ? "Switch to Random Colors"
+        : "Switch to Chosen Color";
+
+    togglePaintMethod.textContent = paintOnHover
+        ? "Switch to Click Mode"
+        : "Switch to Hover Mode";
 }
 
 toggleRandom.addEventListener("click", () => {
-    paintChosen = !paintChosen; // Toggle the mode
+    paintChosen = !paintChosen; // Toggle the mode - switches paintChosen between true and false
     updatePaintMode(); // Update event listeners
+});
+
+// Paint method toggle (hover vs. click)
+togglePaintMethod.addEventListener("click", () => {
+    paintOnHover = !paintOnHover; // Toggle the mode - switches paintChosen between true and false
+    updatePaintMode();
 });
 
 // Color Picker
@@ -142,7 +158,6 @@ function handleColorChange(event) {
     console.log("Color picker value:", newColor);
     currentColor = newColor;
 
-    // Add your custom color handling function here
     onColorChange(newColor);
 }
 
